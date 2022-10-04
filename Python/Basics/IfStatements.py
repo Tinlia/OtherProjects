@@ -1,3 +1,4 @@
+# A basic temperature checking system to practice if statements
 temp = 35
 if temp > 30:
     print("It's a hot day")
