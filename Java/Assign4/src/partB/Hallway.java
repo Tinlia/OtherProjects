@@ -17,10 +17,18 @@ public class Hallway {
         }
         maze = placePoints(maze,row,col); // Generate the S and E points
         showMap(maze,row,col,false);  // Displays the map
-        findPath(maze, row, col, findStarty(maze, row, col), findStartx(maze, row, col)); // Finds a path through the maze
-        System.out.println("Final path:");
-        showMap(maze, row, col,true); // "fin" is true in this which means all the dots will be hidden. 
-                                          // This makes it easier to follow the program's final path
+        System.out.println("Finding path...");
+        if(findPath(maze, row, col, findStarty(maze, row, col), findStartx(maze, row, col))) { // Finds a path through the maze
+            System.out.println("Final path:");
+            showMap(maze, row, col,true); // "fin" is true in this which means all the dots will be hidden.
+                                              // This makes it easier to follow the program's final path
+
+        }
+        else{ // This is for the rare occasion in which either S or E spawns in an unreachable area and a route cannot be made
+            System.out.println("No path was found.");
+            showMap(maze,row,col,false);
+        }
+
     }
 
     // Generates a random start and finish point for the maze
@@ -38,7 +46,7 @@ public class Hallway {
             int rany = (int) (Math.random() * row);
             if(maze[rany][ranx]==' '){ // If the coordinate is empty, place the end
                 maze[rany][ranx] = 'E'; // End
-                break; 
+                break;
             }
         }
         return maze; // Return the new maze
@@ -69,7 +77,6 @@ public class Hallway {
         I used a boolean function here to allow the recursive function to "break" when the end is found.
         This stops the entire path from turning into dots :) */
     public boolean findPath(char[][] maze, int row, int col, int y, int x){
-        showMap(maze,row,col,false); // Shows each step
 
         // If your crush, keep the letter
         if(maze[y][x]=='E'){
